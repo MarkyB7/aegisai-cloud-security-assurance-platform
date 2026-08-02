@@ -1,6 +1,27 @@
++------------------------------------------------------------+
+|                                                            |
+|                     AEGISAI                                |
+|      Enterprise Cloud AI Security Assurance Platform       |
+|                                                            |
+|   Secure • Govern • Detect • Respond • Assure              |
+|                                                            |
++------------------------------------------------------------+
+
 # AegisAI Cloud Security Assurance Platform
 
+![Architecture](https://img.shields.io/badge/Architecture-v1.0-blue)
+![Status](https://img.shields.io/badge/Status-Active%20Development-orange)
+![Cloud](https://img.shields.io/badge/Cloud-AWS-232F3E)
+![Infrastructure](https://img.shields.io/badge/IaC-Terraform-7B42BC)
+![Language](https://img.shields.io/badge/Language-Python-3776AB)
+
 > Enterprise AI Security Assurance Platform for securing, governing, detecting, responding to, and providing assurance for cloud-native AI workloads on AWS.
+
+<p align="center">
+  <img src="docs/architecture/png/AegisAI-Architecture-v1.0-AEG-EXEC-001.png"
+       alt="AegisAI Executive Overview"
+       width="850">
+</p>
 
 ---
 
@@ -63,24 +84,34 @@ AegisAI is designed to help organizations:
 
 # Architecture
 
-The platform has been designed using enterprise architecture methodologies and includes multiple architectural viewpoints.
+AegisAI was designed as an enterprise architecture engagement before implementation began. Each architectural view answers a separate business, security, operational, or technical question.
+
+## Featured Deployment Architecture
+
+<p align="center">
+  <img src="docs/architecture/png/AegisAI-Architecture-v1.0-AEG-DEP-001.png"
+       alt="AegisAI AWS Deployment Architecture"
+       width="850">
+</p>
 
 ## Architecture Views
 
-- Executive Overview
-- System Context
-- Logical Architecture
-- Trust Boundary
-- Data Flow
-- Threat Model
-- Detection & Response
-- Deployment Architecture
+| Diagram | Purpose | View |
+|---|---|---|
+| **Executive Overview** | Connects enterprise AI risks to platform capabilities and business outcomes. | [Open diagram](docs/architecture/svg/AegisAI-Architecture-v1.0-AEG-EXEC-001.svg) |
+| **System Context** | Shows human actors, external systems, and the AegisAI platform boundary. | [Open diagram](docs/architecture/svg/AegisAI-Architecture-v1.0-AEG-CTX-001.svg) |
+| **Logical Architecture** | Decomposes AegisAI into its primary capability domains and layers. | [Open diagram](docs/architecture/svg/AegisAI-Architecture-v1.0-AEG-LA-001.svg) |
+| **Trust Boundary** | Identifies where trust changes and security decisions must occur. | [Open diagram](docs/architecture/svg/AegisAI-Architecture-v1.0-AEG-TB-001.svg) |
+| **Data Flow** | Shows how identity data, AI requests, findings, telemetry, and evidence move through the platform. | [Open diagram](docs/architecture/svg/AegisAI-Architecture-v1.0-AEG-DFD-001.svg) |
+| **Threat Model** | Shows threat actors, attack surfaces, primary threats, and mitigating control groups. | [Open diagram](docs/architecture/svg/AegisAI-Architecture-v1.0-AEG-TM-001.svg) |
+| **Detection & Response** | Shows how security signals become findings, decisions, response actions, evidence, and improvements. | [Open diagram](docs/architecture/svg/AegisAI-Architecture-v1.0-AEG-DR-001.svg) |
+| **Deployment Architecture** | Maps logical capabilities to AWS services, deployment zones, and CI/CD workflows. | [Open diagram](docs/architecture/svg/AegisAI-Architecture-v1.0-AEG-DEP-001.svg) |
 
-Architecture documentation is located in:
+## Architecture Package
 
-```
-docs/architecture/
-```
+- [Download the complete Architecture Package v1.0](docs/architecture/pdf/AegisAI-Architecture-v1.0.pdf)
+- [View the editable Draw.io source](docs/architecture/drawio/AegisAI-Architecture-v1.0.drawio)
+- [Read the architecture documentation](docs/architecture/documentation/)
 
 ---
 
@@ -298,4 +329,6 @@ This project demonstrates practical experience in:
 
 # License
 
-This repository is intended as an educational and portfolio project demonstrating enterprise cloud security architecture, AI security engineering, and secure software design principles.
+This project is licensed under the [MIT License](LICENSE).
+
+AegisAI is an educational and portfolio project demonstrating enterprise cloud security architecture, AI security engineering, governance, detection engineering, and secure software design.
