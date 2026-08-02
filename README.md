@@ -1,13 +1,6 @@
-+------------------------------------------------------------+
-|                                                            |
-|                     AEGISAI                                |
-|      Enterprise Cloud AI Security Assurance Platform       |
-|                                                            |
-|   Secure • Govern • Detect • Respond • Assure              |
-|                                                            |
-+------------------------------------------------------------+
 
 # AegisAI Cloud Security Assurance Platform
+<p align="center">
 
 ![Architecture](https://img.shields.io/badge/Architecture-v1.0-blue)
 ![Status](https://img.shields.io/badge/Status-Active%20Development-orange)
@@ -15,13 +8,45 @@
 ![Infrastructure](https://img.shields.io/badge/IaC-Terraform-7B42BC)
 ![Language](https://img.shields.io/badge/Language-Python-3776AB)
 
-> Enterprise AI Security Assurance Platform for securing, governing, detecting, responding to, and providing assurance for cloud-native AI workloads on AWS.
+</p>
+
+<p align="center">
+  <strong>
+    A reference implementation of an enterprise AI security platform demonstrating
+    architecture, governance, detection engineering, and automated response on AWS.
+  </strong>
+</p>
 
 <p align="center">
   <img src="docs/architecture/png/AegisAI-Architecture-v1.0-AEG-EXEC-001.png"
        alt="AegisAI Executive Overview"
        width="850">
 </p>
+
+<p align="center">
+  <em>
+    Enterprise Architecture Package v1.0 — Eight architectural views documenting
+    the design, security, deployment, governance, and operational model of AegisAI.
+  </em>
+</p>
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Why AegisAI?](#why-aegisai)
+- [Business Value](#business-value)
+- [Core Capabilities](#core-capabilities)
+- [Architecture](#architecture)
+- [Technology Stack](#technology-stack)
+- [Architecture Principles](#architecture-principles)
+- [Security Framework Alignment](#security-framework-alignment)
+- [Repository Structure](#repository-structure)
+- [Current Status](#current-status)
+- [Project Roadmap](#project-roadmap)
+- [Learning Objectives](#learning-objectives)
+- [License](#license)
 
 ---
 
