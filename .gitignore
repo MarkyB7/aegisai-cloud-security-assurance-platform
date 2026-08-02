@@ -1,0 +1,77 @@
+# -----------------------------
+# Operating System Files
+# -----------------------------
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# -----------------------------
+# Terraform
+# -----------------------------
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+terraform.tfvars
+terraform.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# -----------------------------
+# AWS Credentials
+# -----------------------------
+.aws/
+
+# -----------------------------
+# Secrets
+# -----------------------------
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.crt
+*.csr
+
+# -----------------------------
+# IDE
+# -----------------------------
+.vscode/
+.idea/
+
+# -----------------------------
+# Logs
+# -----------------------------
+*.log
+
+# -----------------------------
+# Node
+# -----------------------------
+node_modules/
+
+# -----------------------------
+# Temporary Files
+# -----------------------------
+*.tmp
+*.bak
+*.swp
