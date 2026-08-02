@@ -274,6 +274,47 @@ tests/
 
 ---
 
+# Documentation
+
+## Executive
+
+| Document | Description |
+|----------|-------------|
+| [Executive Summary](docs/executive/Executive-Summary.md) | High-level overview of AegisAI, business objectives, architecture strategy, and enterprise value. |
+
+---
+
+## Business
+
+| Document | Description |
+|----------|-------------|
+| [Executive Business Case](docs/business/Executive-Business-Case.md) | Business justification, investment rationale, and expected organizational value. |
+| [Stakeholder Analysis](docs/business/Stakeholder-Analysis.md) | Stakeholders, responsibilities, influence, and project impact. |
+
+---
+
+## Architecture
+
+| Document | Description |
+|----------|-------------|
+| [Architecture Vision](docs/architecture/documentation/Architecture-Vision.md) | Overall architectural goals and guiding principles. |
+| [Requirements](docs/architecture/documentation/Requirements.md) | Functional and non-functional requirements. |
+| [System Context](docs/architecture/documentation/System-Context.md) | External actors, systems, and platform boundaries. |
+| [Logical Architecture](docs/architecture/documentation/Logical-Architecture.md) | Logical decomposition of platform capabilities. |
+
+---
+
+## Architecture Package
+
+| Artifact | Location |
+|----------|----------|
+| Draw.io Source | docs/architecture/drawio |
+| SVG Diagrams | docs/architecture/svg |
+| PNG Diagrams | docs/architecture/png |
+| PDF Package | docs/architecture/pdf |
+
+---
+
 # Current Status
 
 | Component | Status |
