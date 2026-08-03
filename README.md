@@ -297,6 +297,7 @@ tests/
 
 | Document | Description |
 |----------|-------------|
+| [Architecture Overview](docs/architecture/documentation/Architecture-Overview.md) | Consolidated explanation of the architecture layers, request lifecycle, trust model, threats, AWS deployment, controls, and design tradeoffs. |
 | [Architecture Vision](docs/architecture/documentation/Architecture-Vision.md) | Overall architectural goals and guiding principles. |
 | [Requirements](docs/architecture/documentation/Requirements.md) | Functional and non-functional requirements. |
 | [System Context](docs/architecture/documentation/System-Context.md) | External actors, systems, and platform boundaries. |
