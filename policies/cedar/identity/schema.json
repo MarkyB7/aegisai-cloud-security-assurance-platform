@@ -1,0 +1,142 @@
+{
+  "AegisAI": {
+    "entityTypes": {
+      "User": {
+        "shape": {
+          "type": "Record",
+          "attributes": {
+            "department": {
+              "type": "String",
+              "required": true
+            },
+            "role": {
+              "type": "String",
+              "required": true
+            },
+            "clearanceLevel": {
+              "type": "Long",
+              "required": true
+            },
+            "allowedModels": {
+              "type": "Set",
+              "element": {
+                "type": "String"
+              },
+              "required": true
+            },
+            "allowedTools": {
+              "type": "Set",
+              "element": {
+                "type": "String"
+              },
+              "required": true
+            }
+          }
+        }
+      },
+
+      "KnowledgeBase": {
+        "shape": {
+          "type": "Record",
+          "attributes": {
+            "ownerDepartment": {
+              "type": "String",
+              "required": true
+            },
+            "classificationLevel": {
+              "type": "Long",
+              "required": true
+            },
+            "environment": {
+              "type": "String",
+              "required": true
+            }
+          }
+        }
+      },
+
+      "Model": {
+        "shape": {
+          "type": "Record",
+          "attributes": {
+           "modelId": {
+              "type": "String",
+              "required": true
+            },
+           "ownerDepartment": {
+              "type": "String",
+              "required": true
+            },
+            "classificationLevel": {
+              "type": "Long",
+              "required": true
+            },
+            "environment": {
+              "type": "String",
+              "required": true
+            }
+          }
+        }
+      },
+
+      "Tool": {
+        "shape": {
+          "type": "Record",
+          "attributes": {
+            "toolId": {
+               "type": "String",
+               "required": true
+            },
+            "ownerDepartment": {
+              "type": "String",
+              "required": true
+            },
+            "classificationLevel": {
+              "type": "Long",
+              "required": true
+            },
+            "environment": {
+              "type": "String",
+              "required": true
+            }
+          }
+        }
+      }
+    },
+
+    "actions": {
+      "ReadKnowledgeBase": {
+        "appliesTo": {
+          "principalTypes": [
+            "User"
+          ],
+          "resourceTypes": [
+            "KnowledgeBase"
+          ]
+        }
+      },
+
+      "InvokeModel": {
+        "appliesTo": {
+          "principalTypes": [
+            "User"
+          ],
+          "resourceTypes": [
+            "Model"
+          ]
+        }
+      },
+
+      "InvokeTool": {
+        "appliesTo": {
+          "principalTypes": [
+            "User"
+          ],
+          "resourceTypes": [
+            "Tool"
+          ]
+        }
+      }
+    }
+  }
+}

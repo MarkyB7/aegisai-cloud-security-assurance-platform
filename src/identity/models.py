@@ -9,7 +9,8 @@ Author: Mark Blas
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import List, Optional
+from enum import Enum
+from typing import Any, List, Mapping, Optional
 
 
 @dataclass(slots=True)
@@ -20,6 +21,61 @@ class Permission:
 
     resource: str
     action: str
+
+class AuthorizationEffect(str, Enum):
+    """
+    Final authorization outcome.
+    """
+
+    ALLOW = "ALLOW"
+    DENY = "DENY"
+
+
+@dataclass(slots=True, frozen=True)
+class ResourceContext:
+    """
+    Security attributes describing the resource being accessed.
+    """
+
+    resource_id: str
+    resource_type: str
+    classification: str
+    owner_department: str
+    environment: str = "production"
+
+
+@dataclass(slots=True, frozen=True)
+class AuthorizationRequest:
+    """
+    Complete authorization question submitted to the policy engine.
+
+    Conceptually:
+        Can PRINCIPAL perform ACTION on RESOURCE under CONTEXT?
+    """
+
+    action: str
+    resource: ResourceContext
+    context: Mapping[str, Any] = field(default_factory=dict)
+
+
+@dataclass(slots=True, frozen=True)
+class AuthorizationDecision:
+    """
+    Result returned by the authorization Policy Decision Point.
+    """
+
+    effect: AuthorizationEffect
+    reason: str
+    policy_id: str
+    decision_id: str
+    request_id: str
+    evaluated_at: datetime = field(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
+
+    @property
+    def allowed(self) -> bool:
+        return self.effect is AuthorizationEffect.ALLOW
 
 
 @dataclass(slots=True)
