@@ -10,6 +10,7 @@ from typing import Any
 from uuid import uuid4
 
 import boto3
+from botocore.exceptions import BotoCoreError, ClientError
 
 from .models import (
     AuthorizationDecision,
@@ -72,17 +73,37 @@ class VerifiedPermissionsAuthorizationService:
                 request_id=request_id,
             )
 
-        response = self._client.is_authorized(
-            policyStoreId=self._policy_store_id,
-            principal=self._build_principal(identity_context),
-            action=self._build_action(request),
-            resource=self._build_resource(request),
-            entities=self._build_entities(
-                identity_context=identity_context,
-                request=request,
-            ),
-            context=self._build_context(request),
-        )
+        try:
+            response = self._client.is_authorized(
+                policyStoreId=self._policy_store_id,
+                principal=self._build_principal(identity_context),
+                action=self._build_action(request),
+                resource=self._build_resource(request),
+                entities=self._build_entities(
+                    identity_context=identity_context,
+                    request=request,
+                ),
+                context=self._build_context(request),
+            )
+        except (BotoCoreError, ClientError):
+            return AuthorizationDecision(
+                effect=AuthorizationEffect.DENY,
+                reason="Authorization provider unavailable or request failed",
+                policy_id="VERIFIED_PERMISSIONS_FAILURE",
+                decision_id=str(uuid4()),
+                request_id=request_id,
+            )
+
+        evaluation_errors = response.get("errors", [])
+
+        if evaluation_errors:
+            return AuthorizationDecision(
+                effect=AuthorizationEffect.DENY,
+                reason="Amazon Verified Permissions policy evaluation error",
+                policy_id="VERIFIED_PERMISSIONS_EVALUATION_ERROR",
+                decision_id=str(uuid4()),
+                request_id=request_id,
+            )
 
         aws_decision = response["decision"]
 
@@ -111,9 +132,7 @@ class VerifiedPermissionsAuthorizationService:
 
         return AuthorizationDecision(
             effect=effect,
-            reason=(
-                "Amazon Verified Permissions authorization decision"
-            ),
+            reason="Amazon Verified Permissions authorization decision",
             policy_id=policy_id,
             decision_id=str(uuid4()),
             request_id=request_id,
@@ -242,9 +261,7 @@ class VerifiedPermissionsAuthorizationService:
                 {
                     "identifier": {
                         "entityType": "AegisAI::User",
-                        "entityId": (
-                            identity_context.identity.user_id
-                        ),
+                        "entityId": identity_context.identity.user_id,
                     },
                     "attributes": principal_attributes,
                     "parents": [],
@@ -252,8 +269,7 @@ class VerifiedPermissionsAuthorizationService:
                 {
                     "identifier": {
                         "entityType": (
-                            f"AegisAI::"
-                            f"{request.resource.resource_type}"
+                            f"AegisAI::{request.resource.resource_type}"
                         ),
                         "entityId": request.resource.resource_id,
                     },
@@ -269,7 +285,9 @@ class VerifiedPermissionsAuthorizationService:
     ) -> dict[str, Any]:
         return {
             "contextMap": {
-                key: {"string": str(value)}
+                key: {
+                    "string": str(value)
+                }
                 for key, value in request.context.items()
             }
         }

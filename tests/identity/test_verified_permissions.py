@@ -545,3 +545,132 @@ def test_unknown_action_mapping_fails_closed() -> None:
         )
 
     client.is_authorized.assert_not_called()
+
+def test_aws_client_failure_fails_closed() -> None:
+    from botocore.exceptions import ClientError
+
+    client = Mock()
+
+    client.is_authorized.side_effect = ClientError(
+        {
+            "Error": {
+                "Code": "ServiceUnavailableException",
+                "Message": "Verified Permissions unavailable",
+            }
+        },
+        "IsAuthorized",
+    )
+
+    service = VerifiedPermissionsAuthorizationService(
+        policy_store_id=POLICY_STORE_ID,
+        region_name="us-west-2",
+        client=client,
+    )
+
+    identity = build_identity_context()
+
+    request = AuthorizationRequest(
+        action="Read",
+        resource=ResourceContext(
+            resource_id="finance-kb",
+            resource_type="KnowledgeBase",
+            classification="Internal",
+            owner_department="Finance",
+        ),
+    )
+
+    decision = service.authorize(
+        identity_context=identity,
+        request=request,
+    )
+
+    assert decision.effect is AuthorizationEffect.DENY
+    assert decision.allowed is False
+    assert decision.policy_id == "VERIFIED_PERMISSIONS_FAILURE"
+
+
+def test_policy_evaluation_error_fails_closed() -> None:
+    client = Mock()
+
+    client.is_authorized.return_value = {
+        "decision": "DENY",
+        "determiningPolicies": [],
+        "errors": [
+            {
+                "errorDescription": "Required attribute missing"
+            }
+        ],
+    }
+
+    service = VerifiedPermissionsAuthorizationService(
+        policy_store_id=POLICY_STORE_ID,
+        region_name="us-west-2",
+        client=client,
+    )
+
+    identity = build_identity_context()
+
+    request = AuthorizationRequest(
+        action="Read",
+        resource=ResourceContext(
+            resource_id="finance-kb",
+            resource_type="KnowledgeBase",
+            classification="Internal",
+            owner_department="Finance",
+        ),
+    )
+
+    decision = service.authorize(
+        identity_context=identity,
+        request=request,
+    )
+
+    assert decision.effect is AuthorizationEffect.DENY
+    assert decision.allowed is False
+    assert (
+        decision.policy_id
+        == "VERIFIED_PERMISSIONS_EVALUATION_ERROR"
+    )
+
+
+def test_failure_preserves_request_id() -> None:
+    from botocore.exceptions import ClientError
+
+    client = Mock()
+
+    client.is_authorized.side_effect = ClientError(
+        {
+            "Error": {
+                "Code": "InternalServerException",
+                "Message": "Service failure",
+            }
+        },
+        "IsAuthorized",
+    )
+
+    service = VerifiedPermissionsAuthorizationService(
+        policy_store_id=POLICY_STORE_ID,
+        region_name="us-west-2",
+        client=client,
+    )
+
+    identity = build_identity_context()
+
+    request = AuthorizationRequest(
+        action="Read",
+        resource=ResourceContext(
+            resource_id="finance-kb",
+            resource_type="KnowledgeBase",
+            classification="Internal",
+            owner_department="Finance",
+        ),
+    )
+
+    decision = service.authorize(
+        identity_context=identity,
+        request=request,
+    )
+
+    assert decision.effect is AuthorizationEffect.DENY
+    assert decision.request_id == "request-123"
+    assert decision.decision_id
