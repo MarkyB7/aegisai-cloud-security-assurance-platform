@@ -10,6 +10,7 @@ Desktop.ini
 # -----------------------------
 __pycache__/
 *.py[cod]
+*.pyc
 *.pyo
 *.pyd
 *.egg-info/
@@ -27,15 +28,21 @@ env/
 # -----------------------------
 .terraform/
 *.tfstate
-*.tfstate.*
+*.tfstate.**.bak
+*.swp
+
+
+*.tfvars
+*.tfvars.json
 crash.log
+crash.*.log
 terraform.tfvars
 terraform.tfvars.json
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
-.terraform.lock.hcl
+.terraform.tfstate.lock.info
 
 # -----------------------------
 # AWS Credentials
