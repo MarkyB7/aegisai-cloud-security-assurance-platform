@@ -9,7 +9,8 @@ Amazon S3, CloudWatch Logs, or an enterprise SIEM.
 import json
 from pathlib import Path
 from typing import Any, Mapping
-
+from .evidence_policy import sanitize_authorization_record
+from .evidence_integrity import calculate_record_digest
 
 class JsonLineAuditSink:
     """
@@ -33,12 +34,27 @@ class JsonLineAuditSink:
             exist_ok=True,
         )
 
+        sanitized_record = sanitize_authorization_record(record)
+
+        digest = calculate_record_digest(
+            sanitized_record
+        )
+
+        evidence_record = {
+            **sanitized_record,
+            "integrity": {
+                "algorithm": "SHA-256",
+                "digest": digest,
+            },
+        }
+
         with self._file_path.open(
             "a",
             encoding="utf-8",
         ) as audit_file:
+
             json.dump(
-                dict(record),
+                sanitized_record,
                 audit_file,
                 separators=(",", ":"),
                 sort_keys=True,
