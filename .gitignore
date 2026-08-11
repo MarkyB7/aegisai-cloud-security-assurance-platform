@@ -82,3 +82,8 @@ node_modules/
 *.tmp
 *.bak
 *.swp
+
+# ------------------------------
+# Runtime Security Evidence
+# ------------------------------
+evidence/**/*.jsonl
